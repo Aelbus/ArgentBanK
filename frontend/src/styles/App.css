@@ -1,14 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
-.App {
+.App{
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-family: "lato", sans-serif;
+}
+*,
+::after,
+::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "lato", sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
-.App .sr-only {
+.pages-div {
+  height: 82vh;
+}
+.sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
   -webkit-clip-path: inset(50%) !important;
@@ -21,5 +29,3 @@
   width: 1px !important;
   white-space: nowrap !important; /* 3 */
 }
-
-/*# sourceMappingURL=App.css.map */
