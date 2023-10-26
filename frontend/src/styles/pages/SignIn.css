@@ -1,0 +1,59 @@
+.main-signin {
+  height: 82vh;
+  margin: auto 0;
+  background-color: #12002b;
+  border: solid 3px red;
+}
+
+.signin {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  margin-top: 50px;
+  width: 300px;
+  height: 350px;
+  padding: 32px;
+}
+.signin-form .form-header {
+  text-align: center;
+}
+.signin-form .form-header h2 {
+  margin: 15px 0px;
+}
+.signin-form label[for=username],
+.signin-form label[for=password] {
+  font-weight: 700;
+}
+.signin-form input[type=text],
+.signin-form input[type=password] {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.signin-form .saveLogins-container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+.signin-form .saveLogins-container label {
+  margin-left: 10px;
+}
+.signin-form .signin-button {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  border: none;
+  background-color: #00bc77;
+  color: #fff;
+}
+
+/*# sourceMappingURL=SignIn.css.map */
