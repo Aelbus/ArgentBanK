@@ -1,0 +1,84 @@
+.hero {
+  overflow: hidden;
+}
+.hero-banner {
+  position: relative;
+  background-image: url("../../assets/bank-tree.webp");
+  background-position: 0% 33%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+}
+.hero-banner .hero-content {
+  position: absolute;
+  top: 80px;
+  right: 80px;
+  background-color: #fff;
+  width: 365px;
+  height: 215px;
+  padding: 35px;
+}
+.hero-banner .hero-content h2 {
+  margin-bottom: 22px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+.hero-banner .hero-content p {
+  font-size: 20px;
+}
+
+.services {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 40px 45px;
+  height: 310px;
+  margin-bottom: 30px;
+}
+.services-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  width: 33.33%;
+}
+.services-card .img-container {
+  border: 10px solid #00bc77;
+  border-radius: 50%;
+  padding: 15px;
+}
+.services-card .img-container img {
+  width: 100px;
+}
+.services-card .services-title {
+  font-size: 20px;
+}
+.services-card .services-subtitle {
+  text-align: center;
+}
+
+@media screen and (max-width: 678px) {
+  .hero-banner {
+    display: grid;
+    place-content: center;
+    padding: 0px 20px;
+  }
+  .hero-banner .hero-content {
+    position: static;
+    width: 100%;
+  }
+  .services {
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+  }
+  .services-card {
+    text-align: center;
+    margin: 20px 0px;
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=Home.css.map */
