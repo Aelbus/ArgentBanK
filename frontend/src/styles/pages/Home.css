@@ -1,0 +1,10 @@
+.home-div {
+  height: 82vh;
+}
+.home-div .banner {
+  height: 400px;
+  width: 100%;
+  background-image: url(../../assets/img/bank-tree.webp);
+}
+
+/*# sourceMappingURL=Home.css.map */

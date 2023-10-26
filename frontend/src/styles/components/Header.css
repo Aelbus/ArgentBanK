@@ -1,0 +1,26 @@
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+}
+.main-nav a {
+  font-weight: bold;
+  color: #2c3e50;
+  font-size: 18px;
+}
+.main-nav .main-nav-item {
+  text-decoration: none;
+}
+.main-nav .main-nav-item:hover {
+  text-decoration: underline;
+}
+.main-nav .main-nav-item i {
+  margin-right: 8px;
+}
+.main-nav .main-nav-logo-image {
+  max-width: 100%;
+  width: 200px;
+}
+
+/*# sourceMappingURL=Header.css.map */
