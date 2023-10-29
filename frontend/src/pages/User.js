@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setGetProfile } from "../redux/reducers/profileSlice";
 import Account from "../components/Account";
@@ -7,11 +7,10 @@ import EditButton from "../components/EditButton";
 export default function User() {
   const token = useSelector((state) => state.userAuth.token);
   const profile = useSelector((state) => state.profile);
-
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchDataUser = async () => {
+  const fetchDataUser = useCallback(() => {
+    const fetchData = async () => {
       try {
         const response = await fetch(
           "http://localhost:3001/api/v1/user/profile",
@@ -28,8 +27,12 @@ export default function User() {
         console.log(err);
       }
     };
+    fetchData();
+  }, [dispatch, token]);
+
+  useEffect(() => {
     fetchDataUser();
-  }, [token]);
+  }, [fetchDataUser]);
 
   return (
     <main className="main bg-dark">
