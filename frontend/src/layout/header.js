@@ -1,29 +1,52 @@
-import React from "react";
-import Logo from "../assets/argentBankLogo.webp";
-import { Link } from "react-router-dom"; // Importez Link
-import "../styles/layout/header.css";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setLogOut } from "../redux/reducers/userAuthSlice";
+import { resetProfile } from "../redux/reducers/profileSlice";
+import logo from "../assets/argentBankLogo.webp";
+import "../styles/layout/Header.css";
 
-const Header = () => {
+export default function Header() {
+  const token = useSelector((state) => state.userAuth.token);
+  const profile = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+
   return (
-    <div className="header-div">
+    <header>
       <nav className="main-nav">
-        <Link to="/" className="main-nav-logo">
+        <Link className="main-nav-logo" to="./">
           <img
             className="main-nav-logo-image"
-            src={Logo}
-            alt="Logo Argent Bank"
+            src={logo}
+            alt="Argent Bank Logo"
           />
           <h1 className="sr-only">Argent Bank</h1>
         </Link>
         <div>
-          <a className="main-nav-item" href="./sign-in.html">
+          {token && (
+            <Link className="main-nav-item" to="./user">
+              {profile.userName}
+            </Link>
+          )}
+          <Link
+            className="main-nav-item"
+            to={token ? "./" : "./sign-in/"}
+            onClick={() => {
+              if (token) {
+                dispatch(setLogOut({}));
+                dispatch(resetProfile());
+              }
+            }}
+          >
             <i className="fa fa-user-circle"></i>
-            SignIn
-          </a>
+            {token ? " Sign Out" : " Sign In"}
+          </Link>
+          {!token && (
+            <Link className="main-nav-item" to="./sign-up">
+              Sign Up
+            </Link>
+          )}
         </div>
       </nav>
-    </div>
+    </header>
   );
-};
-
-export default Header;
+}

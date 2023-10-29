@@ -1,36 +1,70 @@
-import React from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setLogIn } from "../redux/reducers/userAuthSlice";
+import TextInput from "../components/TextInput";
+import Button from "../components/Button";
 import "../styles/pages/SignIn.css";
 
-const SignIn = () => {
+export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [checkBox, setCheckBox] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const fetchLogIn = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3001/api/v1/user/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+      const token = data.body.token;
+      dispatch(setLogIn({ token }));
+      navigate("/user");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <main className="pages-div">
-      <div className="main-signin">
-        <section className="signin">
-          <form className="signin-form">
-            <div className="form-header">
-              <i className="fa-solid fa-circle-user"></i>
-              <h2>Sign In</h2>
-            </div>
-
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
-
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
-
-            <div className="saveLogins-container">
-              <label htmlFor="savelogins">Remember me</label>
-              <input type="checkbox" id="savelogins" />
-            </div>
-
-            <button type="submit" className="signin-button">
-              Sign In
-            </button>
-          </form>
-        </section>
-      </div>
+    <main className="main bg-dark">
+      <section className="sign-in-content">
+        <i className="fa fa-user-circle sign-in-icon"></i>
+        <h1>Sign In</h1>
+        <form onSubmit={fetchLogIn}>
+          <TextInput
+            className="input-wrapper"
+            label="E-mail"
+            id="email"
+            type="text"
+            autoComplete="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextInput
+            className="input-wrapper"
+            label="Password"
+            id="password"
+            type="password"
+            autoComplete="current-password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <TextInput
+            className="input-remember"
+            label="Remember me"
+            id="remember-me"
+            type="checkbox"
+            onChange={() => setCheckBox(!checkBox)}
+          />
+          <Button className="sign-in-button" type="submit">
+            Sign In
+          </Button>
+        </form>
+      </section>
     </main>
   );
-};
-
-export default SignIn;
+}

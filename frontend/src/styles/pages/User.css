@@ -1,21 +1,18 @@
-.App{
-  background-color: white;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  font-family: "lato", sans-serif;
+.main {
+  flex: 1;
 }
-*,
-::after,
-::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+.bg-dark {
+  background-color: #12002b;
+  min-height: calc(100vh - 143px);
+  padding: 1px 0;
 }
-.pages-div {
-  height: 82vh;
+
+.header {
+  color: #fff;
+  margin-bottom: 2rem;
 }
+
 .sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
@@ -29,3 +26,5 @@
   width: 1px !important;
   white-space: nowrap !important; /* 3 */
 }
+
+/*# sourceMappingURL=User.css.map */

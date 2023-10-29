@@ -1,3 +1,18 @@
+.main {
+  	flex: 1;
+}
+
+.bg-dark {
+ 	background-color: #12002b;
+    min-height: calc(100vh - 143px);
+    padding: 1px 0;
+}
+
+.header {
+	color: #fff;
+	margin-bottom: 2rem;
+}
+
 .sr-only {
 	border: 0 !important;
 	clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
@@ -10,15 +25,4 @@
 	position: absolute !important;
 	width: 1px !important;
 	white-space: nowrap !important; /* 3 */
-}
-
-.features {
-	display: flex;
-	flex-direction: column;
-}
-
-@media (min-width: 920px) {
-	.features {
-		flex-direction: row;
-	}
 }
