@@ -1,11 +1,11 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   title: Additional Bank API documentation
-  description: Contains additional API endpoints for bank operations
-  version: '1.0.0'
-  termsOfService: 'http://swagger.io/terms/'
+  description: Argentbank API v2
+  version: "2.0.0"
+  termsOfService: "http://swagger.io/terms/"
 host: localhost:3001
-basePath: /api/v1
+basePath: /api/v2
 schemes:
   - http
 paths:
@@ -18,13 +18,14 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: List of accounts retrieved successfully
           schema:
-            $ref: '#/definitions/AccountsList'
-        '500':
+            $ref: "#/definitions/AccountsList"
+        "400":
+          description: Invalid Fields
+        "500":
           description: Internal Server Error
-
   /user/{userid}/accounts:
     get:
       tags:
@@ -40,11 +41,13 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: User's accounts retrieved successfully
           schema:
-            $ref: '#/definitions/UserAccounts'
-        '500':
+            $ref: "#/definitions/UserAccounts"
+        "400":
+          description: Invalid Fields
+        "500":
           description: Internal Server Error
     post:
       tags:
@@ -60,13 +63,14 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Account created successfully
           schema:
-            $ref: '#/definitions/AccountCreated'
-        '500':
+            $ref: "#/definitions/AccountCreated"
+        "400":
+          description: Invalid Fields
+        "500":
           description: Internal Server Error
-
   /user/{userid}/accounts/{accountid}:
     put:
       tags:
@@ -87,11 +91,13 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Account updated successfully
           schema:
-            $ref: '#/definitions/AccountUpdated'
-        '500':
+            $ref: "#/definitions/AccountUpdated"
+        "400":
+          description: Invalid Fields
+        "500":
           description: Internal Server Error
     delete:
       tags:
@@ -112,11 +118,13 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Account deleted successfully
           schema:
-            $ref: '#/definitions/AccountDeleted'
-        '500':
+            $ref: "#/definitions/AccountDeleted"
+        "400":
+          description: Invalid Fields
+        "500":
           description: Internal Server Error
 
   /user/{userid}/accounts/{accountid}/transactions:
@@ -139,11 +147,13 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Account transactions retrieved successfully
           schema:
-            $ref: '#/definitions/AccountTransactions'
-        '500':
+            $ref: "#/definitions/AccountTransactions"
+        "400":
+          description: Invalid Fields
+        "500":
           description: Internal Server Error
     post:
       tags:
@@ -164,13 +174,14 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Transaction added successfully
           schema:
-            $ref: '#/definitions/TransactionAdded'
-        '500':
+            $ref: "#/definitions/TransactionAdded"
+        "400":
+          description: Invalid Fields
+        "500":
           description: Internal Server Error
-
   /user/{userid}/accounts/{accountid}/transactions/{transactionid}:
     get:
       tags:
@@ -196,11 +207,13 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Transaction details retrieved successfully
           schema:
-            $ref: '#/definitions/TransactionDetails'
-        '500':
+            $ref: "#/definitions/TransactionDetails"
+        "400":
+          description: Invalid Fields
+        "500":
           description: Internal Server Error
     put:
       tags:
@@ -226,66 +239,15 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Transaction updated successfully
           schema:
-            $ref: '#/definitions/TransactionUpdated'
-        '500':
+            $ref: "#/definitions/TransactionUpdated"
+        "400":
+          description: Invalid Fields
+        "500":
           description: Internal Server Error
 
 definitions:
-  AccountsList:
-    type: object
-    properties: --------------------------------------------
-      accounts:
-        type: array
-        items:
-          $ref: '#/definitions/Account'
-  Account:
-    type: object
-    properties:
-  UserAccounts:
-    type: object
-    properties: --------------------------------------------
-      userAccounts:
-        type: array
-        items:
-          $ref: '#/definitions/Account'
-  AccountCreated:
-    type: object
-    properties:
-      message:
-        type: string
-  AccountUpdated:
-    type: object
-    properties:
-      message:
-        type: string
-  AccountDeleted:
-    type: object
-    properties:
-      message:
-        type: string
-  AccountTransactions:
-    type: object
-    properties: --------------------------------------------
-      transactions:
-        type: array
-        items:
-          $ref: '#/definitions/Transaction'
-  Transaction:
-    type: object
-    properties:
-  TransactionAdded:
-    type: object
-    properties: --------------------------------------------
-      message:
-        type: string
-  TransactionDetails:
-    type: object
-    properties:
-  TransactionUpdated:
-    type: object
-    properties:
-      message:
-        type: string
+accounts:
+transacations:
