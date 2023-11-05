@@ -2,30 +2,13 @@ swagger: "2.0"
 info:
   title: ArgentBank API documentation
   description: Argentbank API v2
-  version: "2.0.0"
+  version: "1.1.0"
   termsOfService: "http://swagger.io/terms/"
 host: localhost:3001
 basePath: /api/v2
 schemes:
   - http
 paths:
-  /accounts:
-    get:
-      tags:
-        - Account Module
-      summary: Get All Accounts
-      description: Retrieve all accounts
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: List of accounts retrieved successfully
-          schema:
-            $ref: "#/definitions/AccountsList"
-        "400":
-          description: Invalid Fields
-        "500":
-          description: Internal Server Error
   /user/{userid}/accounts:
     get:
       tags:
@@ -249,29 +232,97 @@ paths:
           description: Internal Server Error
 
 definitions:
-  AccountsList:
-    properties:
-
   UserAccounts:
+    type: object
     properties:
+      accounts:
+        type: array
+        items:
+          $ref: "#/definitions/AccountDetails"
+        description: List of user's accounts
+  AccountDetails:
+    type: object
+    properties:
+      accountId:
+        type: string
+        description: ID of the account
+      accountType:
+        type: string
+        description: Type of the account
+      balance:
+        type: number
+        description: Current balance in the account
 
   AccountCreated:
+    type: object
     properties:
-
+      accountId:
+        type: string
+        description: ID of the newly created account
+      message:
+        type: string
+        description: A message indicating the successful creation of the account
   AccountUpdated:
+    type: object
     properties:
-
+      message:
+        type: string
+        description: A message indicating the successful update of the account
   AccountDeleted:
+    type: object
     properties:
+      message:
+        type: string
+        description: A message indicating the successful deletion of the account
 
   AccountTransactions:
+    type: object
     properties:
+      transactions:
+        type: array
+        items:
+          $ref: "#/definitions/TransactionDetails"
+        description: List of transactions for the account
 
   TransactionAdded:
+    type: object
     properties:
-
+      transactionId:
+        type: string
+        description: ID of the newly added transaction
+      message:
+        type: string
+        description: A message indicating the success of the transaction addition
   TransactionDetails:
+    type: object
     properties:
-
+      transactionId:
+        type: string
+        description: ID of the transaction
+      amount:
+        type: number
+        description: Amount of the transaction
+      description:
+        type: string
+        description: Description of the transaction
+      date:
+        type: string
+        format: date-time
+        description: Date and time of the transaction
+      status:
+        type: string
+        description: Status of the transaction
   TransactionUpdated:
+    type: object
     properties:
+      transactionId:
+        type: string
+        description: ID of the updated transaction
+      status:
+        type: string
+        description: Status of the transaction after update
+      updatedFields:
+        type: array
+        items:
+          type: string
+        description: List of fields that were updated in the transaction
