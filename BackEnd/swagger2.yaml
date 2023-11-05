@@ -1,0 +1,291 @@
+swagger: '2.0'
+info:
+  title: Additional Bank API documentation
+  description: Contains additional API endpoints for bank operations
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /accounts:
+    get:
+      tags:
+        - Account Module
+      summary: Get All Accounts
+      description: Retrieve all accounts
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: List of accounts retrieved successfully
+          schema:
+            $ref: '#/definitions/AccountsList'
+        '500':
+          description: Internal Server Error
+
+  /user/{userid}/accounts:
+    get:
+      tags:
+        - Account Module
+      summary: Get User's Accounts
+      description: Retrieve accounts of a specific user
+      parameters:
+        - in: path
+          name: userid
+          type: string
+          required: true
+          description: User ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User's accounts retrieved successfully
+          schema:
+            $ref: '#/definitions/UserAccounts'
+        '500':
+          description: Internal Server Error
+    post:
+      tags:
+        - Account Module
+      summary: Create User Account
+      description: Create a new account for a user
+      parameters:
+        - in: path
+          name: userid
+          type: string
+          required: true
+          description: User ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Account created successfully
+          schema:
+            $ref: '#/definitions/AccountCreated'
+        '500':
+          description: Internal Server Error
+
+  /user/{userid}/accounts/{accountid}:
+    put:
+      tags:
+        - Account Module
+      summary: Update User Account
+      description: Update account details for a user
+      parameters:
+        - in: path
+          name: userid
+          type: string
+          required: true
+          description: User ID
+        - in: path
+          name: accountid
+          type: string
+          required: true
+          description: Account ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Account updated successfully
+          schema:
+            $ref: '#/definitions/AccountUpdated'
+        '500':
+          description: Internal Server Error
+    delete:
+      tags:
+        - Account Module
+      summary: Delete User Account
+      description: Delete an account of a user
+      parameters:
+        - in: path
+          name: userid
+          type: string
+          required: true
+          description: User ID
+        - in: path
+          name: accountid
+          type: string
+          required: true
+          description: Account ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Account deleted successfully
+          schema:
+            $ref: '#/definitions/AccountDeleted'
+        '500':
+          description: Internal Server Error
+
+  /user/{userid}/accounts/{accountid}/transactions:
+    get:
+      tags:
+        - Transaction Module
+      summary: Get Account Transactions
+      description: Retrieve transactions for a specific account of a user
+      parameters:
+        - in: path
+          name: userid
+          type: string
+          required: true
+          description: User ID
+        - in: path
+          name: accountid
+          type: string
+          required: true
+          description: Account ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Account transactions retrieved successfully
+          schema:
+            $ref: '#/definitions/AccountTransactions'
+        '500':
+          description: Internal Server Error
+    post:
+      tags:
+        - Transaction Module
+      summary: Add Transaction
+      description: Add a new transaction to a specific account of a user
+      parameters:
+        - in: path
+          name: userid
+          type: string
+          required: true
+          description: User ID
+        - in: path
+          name: accountid
+          type: string
+          required: true
+          description: Account ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction added successfully
+          schema:
+            $ref: '#/definitions/TransactionAdded'
+        '500':
+          description: Internal Server Error
+
+  /user/{userid}/accounts/{accountid}/transactions/{transactionid}:
+    get:
+      tags:
+        - Transaction Module
+      summary: Get Transaction Details
+      description: Retrieve details of a specific transaction
+      parameters:
+        - in: path
+          name: userid
+          type: string
+          required: true
+          description: User ID
+        - in: path
+          name: accountid
+          type: string
+          required: true
+          description: Account ID
+        - in: path
+          name: transactionid
+          type: string
+          required: true
+          description: Transaction ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction details retrieved successfully
+          schema:
+            $ref: '#/definitions/TransactionDetails'
+        '500':
+          description: Internal Server Error
+    put:
+      tags:
+        - Transaction Module
+      summary: Update Transaction
+      description: Update details of a specific transaction
+      parameters:
+        - in: path
+          name: userid
+          type: string
+          required: true
+          description: User ID
+        - in: path
+          name: accountid
+          type: string
+          required: true
+          description: Account ID
+        - in: path
+          name: transactionid
+          type: string
+          required: true
+          description: Transaction ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updated successfully
+          schema:
+            $ref: '#/definitions/TransactionUpdated'
+        '500':
+          description: Internal Server Error
+
+definitions:
+  AccountsList:
+    type: object
+    properties: --------------------------------------------
+      accounts:
+        type: array
+        items:
+          $ref: '#/definitions/Account'
+  Account:
+    type: object
+    properties:
+  UserAccounts:
+    type: object
+    properties: --------------------------------------------
+      userAccounts:
+        type: array
+        items:
+          $ref: '#/definitions/Account'
+  AccountCreated:
+    type: object
+    properties:
+      message:
+        type: string
+  AccountUpdated:
+    type: object
+    properties:
+      message:
+        type: string
+  AccountDeleted:
+    type: object
+    properties:
+      message:
+        type: string
+  AccountTransactions:
+    type: object
+    properties: --------------------------------------------
+      transactions:
+        type: array
+        items:
+          $ref: '#/definitions/Transaction'
+  Transaction:
+    type: object
+    properties:
+  TransactionAdded:
+    type: object
+    properties: --------------------------------------------
+      message:
+        type: string
+  TransactionDetails:
+    type: object
+    properties:
+  TransactionUpdated:
+    type: object
+    properties:
+      message:
+        type: string
