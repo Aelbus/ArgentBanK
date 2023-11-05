@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: Additional Bank API documentation
+  title: ArgentBank API documentation
   description: Argentbank API v2
   version: "2.0.0"
   termsOfService: "http://swagger.io/terms/"
@@ -249,5 +249,29 @@ paths:
           description: Internal Server Error
 
 definitions:
-accounts:
-transacations:
+  AccountsList:
+    properties:
+
+  UserAccounts:
+    properties:
+
+  AccountCreated:
+    properties:
+
+  AccountUpdated:
+    properties:
+
+  AccountDeleted:
+    properties:
+
+  AccountTransactions:
+    properties:
+
+  TransactionAdded:
+    properties:
+
+  TransactionDetails:
+    properties:
+
+  TransactionUpdated:
+    properties:
