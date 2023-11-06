@@ -27,7 +27,7 @@ paths:
         "200":
           description: User's accounts retrieved successfully
           schema:
-            $ref: "#/definitions/UserAccounts"
+            $ref: "#/definitions/Accounts"
         "400":
           description: Invalid Fields
         "500":
@@ -43,13 +43,19 @@ paths:
           type: string
           required: true
           description: User ID
+        - in: body
+          name: body
+          description: User account created
+          required: true
+          schema:
+            $ref: "#/definitions/Account"
       produces:
         - application/json
       responses:
         "200":
           description: Account created successfully
           schema:
-            $ref: "#/definitions/AccountCreated"
+            $ref: "#/definitions/CompleteAccount"
         "400":
           description: Invalid Fields
         "500":
@@ -71,13 +77,17 @@ paths:
           type: string
           required: true
           description: Account ID
+        - in: body
+          name: body
+          description: Update account details
+          required: true
+          schema:
+            $ref: "#/definitions/Account"
       produces:
         - application/json
       responses:
         "200":
           description: Account updated successfully
-          schema:
-            $ref: "#/definitions/AccountUpdated"
         "400":
           description: Invalid Fields
         "500":
@@ -103,8 +113,6 @@ paths:
       responses:
         "200":
           description: Account deleted successfully
-          schema:
-            $ref: "#/definitions/AccountDeleted"
         "400":
           description: Invalid Fields
         "500":
@@ -133,7 +141,7 @@ paths:
         "200":
           description: Account transactions retrieved successfully
           schema:
-            $ref: "#/definitions/AccountTransactions"
+            $ref: "#/definitions/Transactions"
         "400":
           description: Invalid Fields
         "500":
@@ -154,13 +162,19 @@ paths:
           type: string
           required: true
           description: Account ID
+        - in: body
+          name: body
+          description: Create transaction
+          required: true
+          schema:
+            $ref: "#/definitions/Transaction"
       produces:
         - application/json
       responses:
         "200":
           description: Transaction added successfully
           schema:
-            $ref: "#/definitions/TransactionAdded"
+            $ref: "#/definitions/TransactionResponse"
         "400":
           description: Invalid Fields
         "500":
@@ -193,7 +207,7 @@ paths:
         "200":
           description: Transaction details retrieved successfully
           schema:
-            $ref: "#/definitions/TransactionDetails"
+            $ref: "#/definitions/CompleteTransaction"
         "400":
           description: Invalid Fields
         "500":
@@ -219,33 +233,63 @@ paths:
           type: string
           required: true
           description: Transaction ID
+        - in: body
+          name: body
+          description: Update transaction details
+          required: true
+          schema:
+            $ref: "#/definitions/Transaction"
       produces:
         - application/json
       responses:
         "200":
           description: Transaction updated successfully
-          schema:
-            $ref: "#/definitions/TransactionUpdated"
         "400":
           description: Invalid Fields
         "500":
           description: Internal Server Error
-
+    delete:
+      tags:
+        - Transaction Module
+      summary: Delete Transaction
+      description: Delete a specific transaction by ID
+      parameters:
+        - in: path
+          name: userid
+          type: string
+          required: true
+          description: User ID
+        - in: path
+          name: accountid
+          type: string
+          required: true
+          description: Account ID
+        - in: path
+          name: transactionid
+          type: string
+          required: true
+          description: Transaction ID
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction deleted successfully
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
 definitions:
-  UserAccounts:
+  Accounts:
     type: object
     properties:
       accounts:
         type: array
         items:
-          $ref: "#/definitions/AccountDetails"
+          $ref: "#/definitions/Account"
         description: List of user's accounts
-  AccountDetails:
+  Account:
     type: object
     properties:
-      accountId:
-        type: string
-        description: ID of the account
       accountType:
         type: string
         description: Type of the account
@@ -253,47 +297,45 @@ definitions:
         type: number
         description: Current balance in the account
 
-  AccountCreated:
+  AccountResponse:
     type: object
     properties:
       accountId:
         type: string
         description: ID of the newly created account
-      message:
+      accountType:
         type: string
-        description: A message indicating the successful creation of the account
-  AccountUpdated:
-    type: object
-    properties:
-      message:
-        type: string
-        description: A message indicating the successful update of the account
-  AccountDeleted:
-    type: object
-    properties:
-      message:
-        type: string
-        description: A message indicating the successful deletion of the account
+        description: Type of the account
+      balance:
+        type: number
+        description: Current balance in the account
 
-  AccountTransactions:
+  Transactions:
     type: object
     properties:
       transactions:
         type: array
         items:
-          $ref: "#/definitions/TransactionDetails"
+          $ref: "#/definitions/TransactionResponse"
         description: List of transactions for the account
 
-  TransactionAdded:
+  Transaction:
     type: object
     properties:
-      transactionId:
+      amount:
+        type: number
+        description: Amount of the transaction
+      description:
         type: string
-        description: ID of the newly added transaction
-      message:
+        description: Description of the transaction
+      date:
         type: string
-        description: A message indicating the success of the transaction addition
-  TransactionDetails:
+        format: date-time
+        description: Date and time of the transaction
+      status:
+        type: string
+        description: Status of the transaction
+  TransactionResponse:
     type: object
     properties:
       transactionId:
@@ -312,17 +354,3 @@ definitions:
       status:
         type: string
         description: Status of the transaction
-  TransactionUpdated:
-    type: object
-    properties:
-      transactionId:
-        type: string
-        description: ID of the updated transaction
-      status:
-        type: string
-        description: Status of the transaction after update
-      updatedFields:
-        type: array
-        items:
-          type: string
-        description: List of fields that were updated in the transaction
