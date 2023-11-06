@@ -55,7 +55,7 @@ paths:
         "200":
           description: Account created successfully
           schema:
-            $ref: "#/definitions/CompleteAccount"
+            $ref: "#/definitions/AccountResponse"
         "400":
           description: Invalid Fields
         "500":
@@ -207,7 +207,7 @@ paths:
         "200":
           description: Transaction details retrieved successfully
           schema:
-            $ref: "#/definitions/CompleteTransaction"
+            $ref: "#/definitions/TransactionResponse"
         "400":
           description: Invalid Fields
         "500":
