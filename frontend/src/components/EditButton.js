@@ -6,26 +6,30 @@ import Button from "./Button";
 import "../styles/components/EditButton.css";
 
 export default function EditButton() {
-  const token = useSelector((state) => state.userAuth.token);
-  const profile = useSelector((state) => state.profile);
-  const [isEditing, setIsEditing] = useState(false);
-  const [newUserName, setNewUserName] = useState(profile.userName);
-  const [error, setError] = useState("");
+  //initialisation des variables d'etat
+  const token = useSelector((state) => state.userAuth.token); //extrait du store via useSelector et représente le jeton d'authentification de l'utilisateur
+  const profile = useSelector((state) => state.profile); //extrait du store Redux via useSelector et contient les détails du profil de l'utilisateur
+  const [isEditing, setIsEditing] = useState(false); //est un état local qui gère si l'utilisateur est en train de modifier son nom d'utilisateur
+  const [newUserName, setNewUserName] = useState(profile.userName); //contient le nouveau nom d'utilisateur en cours de modification
+  const [error, setError] = useState(""); // utilisé pour stocker les éventuels messages d'erreur
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    //Utilisé pour mettre à jour newUserName chaque fois que profile.userName change
     setNewUserName(profile.userName);
   }, [profile.userName]);
 
   const editUserName = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); //  empêche le comportement par défaut d'un événement
     if (!newUserName) {
-      setError("The field cannot be empty.");
+      // // Vérifie si le champ du nouveau nom d'utilisateur est vide
+      setError("The field cannot be empty."); // Définit un message d'erreur
       return;
     }
     try {
       const response = await fetch(
+        // Effectue une requête de type PUT
         "http://localhost:3001/api/v1/user/profile",
         {
           method: "PUT",
@@ -33,16 +37,17 @@ export default function EditButton() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ userName: newUserName }),
+          body: JSON.stringify({ userName: newUserName }), // Ajoute le jeton d'authentification dans l'en-tête
         }
       );
       if (!response) {
+        // Erreur si réponse vide
         throw new Error("Échec de la mise à jour du nom d'utilisateur");
       }
-      dispatch(setEditProfile(newUserName));
-      setIsEditing(false);
+      dispatch(setEditProfile(newUserName)); // Met à jour le profil dans le store Redux avec le nouveau nom d'utilisateur
+      setIsEditing(false); // Passe le mode d'édition à faux, indiquant que l'édition est terminée
     } catch (err) {
-      console.log(err);
+      console.log(err); // En cas d'erreur, affiche l'erreur dans la console
     }
   };
 
@@ -56,12 +61,13 @@ export default function EditButton() {
             type="text"
             autoComplete="username"
             onChange={(e) => {
-              setNewUserName(e.target.value);
-              setError("");
+              setNewUserName(e.target.value); // Met à jour le nouveau nom d'utilisateur
+              setError(""); // Réinitialise le message d'erreur
             }}
-            value={newUserName}
+            value={newUserName} // Valeur du champ de saisie du nom d'utilisateur
           />
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className="error-message">{error}</p>}{" "}
+          {/* Affiche un message d'erreur s'il y en a un */}
           <br />
           <Button className="edit-button" onClick={editUserName}>
             Save

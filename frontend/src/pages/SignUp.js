@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import "../styles/pages/SignUp.css";
 
 export default function SignUp() {
+  // Initialisation des variables d'état
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -16,16 +17,18 @@ export default function SignUp() {
   const [confirmSuccess, setConfirmSuccess] = useState(false);
   const [error, setError] = useState(null);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch(); // est utilisé pour obtenir la fonction "dispatch"
+  const navigate = useNavigate(); // est utilisé pour obtenir la fonction de navigation "navigate"
 
   const SignUp = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch("http://localhost:3001/api/v1/user/signup", {
+        // Utilisation de fetch pour envoyer une requête POST
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          // Contient les données de l'utilisateur (e-mail, mot de passe, prénom, nom, nom d'utilisateur) encodées en JSON
           email,
           password,
           firstName,
@@ -35,15 +38,16 @@ export default function SignUp() {
       });
 
       if (!response.ok) {
+        // Vérification de la réponse. Si la réponse n'est pas OK, l'inscription a échoué, et une erreur est indiquer
         throw new Error("Inscription échouée");
       }
-      dispatch(setLogOut());
-      setConfirmSuccess(true);
-      setSubmitSuccess(true);
-      setError(null);
+      dispatch(setLogOut()); // Déclenche l'action "setLogOut" pour déconnecter tout utilisateur déjà connecté
+      setConfirmSuccess(true); // Met à jour l'état pour indiquer le succès de la confirmation d'inscription
+      setSubmitSuccess(true); // Met à jour l'état pour indiquer le succès de l'inscription
+      setError(null); // Réinitialise l'état d'erreur pour indiquer qu'il n'y a pas d'erreur
     } catch (err) {
-      console.error(err);
-      setError("Erreur lors de l'inscription");
+      console.error(err); // message d'erreur console
+      setError("Erreur lors de l'inscription"); // message d'erreur pour l'utilisateur
     }
   };
 

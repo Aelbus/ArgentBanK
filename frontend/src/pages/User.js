@@ -5,14 +5,17 @@ import Account from "../components/Account";
 import EditButton from "../components/EditButton";
 
 export default function User() {
-  const token = useSelector((state) => state.userAuth.token);
-  const profile = useSelector((state) => state.profile);
+  const token = useSelector((state) => state.userAuth.token); // Récupère le token d'authentification de l'utilisateur à partir du state "userAuth"
+  const profile = useSelector((state) => state.profile); // Récupère les informations de profil stockées dans le state "profile"
   const dispatch = useDispatch();
 
   const fetchDataUser = useCallback(() => {
+    // mémorise la fonction "fetchDataUser" et évite des rendus supplémentaires si les dépendances [dispatch, token] n'ont pas changé
     const fetchData = async () => {
+      // effectue récupération des données depuis l'API
       try {
         const response = await fetch(
+          // Utilisation de fetch pour envoyer une requête POST
           "http://localhost:3001/api/v1/user/profile",
           {
             method: "POST",
@@ -22,16 +25,16 @@ export default function User() {
           }
         );
         const data = await response.json();
-        dispatch(setGetProfile({ data }));
+        dispatch(setGetProfile({ data })); // dispatch pour mettre à jour le store Redux avec les données récupérées du profil de l'utilisateur
       } catch (err) {
-        console.log(err);
+        console.log(err); // si erreur message console
       }
     };
-    fetchData();
+    fetchData(); // / Appel de la fonction fetchData pour récupérer les données
   }, [dispatch, token]);
 
   useEffect(() => {
-    fetchDataUser();
+    fetchDataUser(); // Appel de "fetchDataUser" pour récupérer les données au chargement du composant et à chaque changement
   }, [fetchDataUser]);
 
   return (

@@ -135,6 +135,10 @@ paths:
           type: string
           required: true
           description: Account ID
+        - in: query
+          name: month
+          type: string
+          description: Current month transactions
       produces:
         - application/json
       responses:
@@ -322,19 +326,12 @@ definitions:
   Transaction:
     type: object
     properties:
-      amount:
-        type: number
-        description: Amount of the transaction
-      description:
+      Category:
         type: string
-        description: Description of the transaction
-      date:
+        description: Category of the transaction
+      Note:
         type: string
-        format: date-time
-        description: Date and time of the transaction
-      status:
-        type: string
-        description: Status of the transaction
+        description: Note of the transaction
   TransactionResponse:
     type: object
     properties:
@@ -354,3 +351,9 @@ definitions:
       status:
         type: string
         description: Status of the transaction
+      Category:
+        type: string
+        description: Category of the transaction
+      Note:
+        type: string
+        description: Note of the transaction
